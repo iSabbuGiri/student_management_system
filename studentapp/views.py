@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 
 from studentapp.EmailBackEnd import EmailBackEnd
+from django.contrib import messages
 
 
 
@@ -20,9 +21,10 @@ def doLogin(request):
         user =EmailBackEnd. authenticate(request, username= request.POST.get("email"), password=request.POST.get("password"))
         if user != None:
             login(request,user)
-            return HttpResponse("Email:" + request.POST.get("email") + "Password:" + request.POST.get("password")) 
+            return HttpResponseRedirect('/admin_home') 
         else:
-            return HttpResponse("Invalid Login")     
+            messages.error(request, "Invalid Login Details")
+            return HttpResponseRedirect("/")     
 
 def get_user_details(request):
     if request.user !=None:

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from studentapp import views
+from studentapp import views, HodViews
 
 from student import settings
 
@@ -26,5 +26,11 @@ urlpatterns = [
     path('doLogin', views.doLogin),
     path('admin/', admin.site.urls),
     path('get_user_details', views.get_user_details),
-    path('logout_user', views.logout_user)
+    path('logout_user', views.logout_user),
+    path('admin_home/',HodViews.admin_home),
+    path('add_staff/', HodViews.add_staff),
+    path('add_staff_save', HodViews.add_staff_save),
+    path('add_course/', HodViews.add_course),
+    path('add_course_save', HodViews.add_course_save)
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
