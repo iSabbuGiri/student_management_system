@@ -35,7 +35,7 @@ class Subjects(models.Model):
     id=models.AutoField(primary_key=True)
     subject_name=models.CharField(max_length=255)
     course_id=models.ForeignKey(Courses,on_delete=models.CASCADE,default=1)
-    staff_id=models.ForeignKey(Staffs,on_delete=models.CASCADE)
+    staff_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
     objects=models.Manager()
@@ -88,7 +88,7 @@ class LeaveReportStaff(models.Model):
     leave_status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    objects = models.Manager()
+    objects = models.Manager()  
 
 
 class FeedBackStudent(models.Model):
@@ -134,9 +134,9 @@ def create_user_profile(sender,instance,created,**kwargs):
         if instance.user_type==1:
             AdminHOD.objects.create(admin=instance)
         if instance.user_type==2:
-            Staffs.objects.create(admin=instance)
+            Staffs.objects.create(admin=instance, address="")
         if instance.user_type==3:
-            Students.objects.create(admin=instance)
+            Students.objects.create(admin=instance,  course_id=Courses.objects.get(id=1), session_start_year="2020-09-30", session_end_year="2021-01-01", address="", profile_pic="", gender="")
 
 
 @receiver(post_save,sender=CustomUser)
