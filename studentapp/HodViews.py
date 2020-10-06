@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 from studentapp.forms import AddStudentForm, EditStudentForm
-from studentapp.models import CustomUser, Staffs, Courses, Students, Subjects
+from studentapp.models import *
 import datetime
 
 def admin_home(request):
@@ -297,3 +297,23 @@ def edit_course_save(request):
         except:
             messages.error(request, "Failed To  Edit  Course")
             return HttpResponseRedirect(reverse("edit_course",kwargs={"course_id":course_id}))   
+
+def manage_session(request):
+    return render(request, "hod_template/manage_session_template.html")
+
+def add_session_save(request):
+    if request.method != "POST":
+        return HttpResponseRedirect(reverse("manage_session"))
+    else:
+        session_start_year = request.POST.get("session_start")
+        session_end_year = request.POST.get("session_end")
+
+        try:
+            sessionyear = SessionYearModel(session_start_year=session_start_year, session_end_year=session_end_year)
+            sessionyear.save()
+            messages.success(request, "Successfully Added Session")
+            return HttpResponseRedirect(reverse("manage_session"))
+
+        except:
+            messages.error(request, "Failed to Add Course")
+            return HttpResponseRedirect(reverse("manage_session"))        

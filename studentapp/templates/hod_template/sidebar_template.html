@@ -31,7 +31,6 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Add Staff
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
@@ -42,21 +41,20 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Staff
-                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            {% url 'add_student'  as add_student %}
+            <a href="{{ add_student }}" class="nav-link {% if request.path == add_student %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Student
               </p>
             </a>
           </li>
         
-          <li class="nav-item">
-            {% url 'add_student'  as add_student %}
-            <a href="{{add_student}}" class="nav-link {% if request.path == add_student %} active {% endif %}"> 
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Add Student
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
+         
           <li class="nav-item">
             {% url 'manage_student'  as manage_student %}
             {% url 'edit_student' student_id=id  as edit_student %}
@@ -64,7 +62,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                   Manage Student
-                <span class="right badge badge-danger">New</span>
+              
               </p>
             </a>
           </li>
@@ -74,7 +72,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Add Course
-                <span class="right badge badge-danger">New</span>
+               
               </p>
             </a>
           </li>
@@ -85,7 +83,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Course
-                <span class="right badge badge-danger">New</span>
+               
               </p>
             </a>
           </li>
@@ -95,7 +93,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Add Subject
-                <span class="right badge badge-danger">New</span>
+            
               </p>
             </a>
           </li>
@@ -106,17 +104,27 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Subject
-                <span class="right badge badge-danger">New</span>
+               
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            {% url 'manage_session'  as manage_session %}
+            <a href="{{manage_session}}" class="nav-link {% if request.path == manage_session %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Session Year
+              </p>
+            </a>
+          </li>
+         
           <li class="nav-item">
             {% url 'add_staff'  as add_staff %}
             <a href="{{add_staff}}" class="nav-link {% if request.path == add_staff %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 View Attendance
-                <span class="right badge badge-danger">New</span>
+             
               </p>
             </a>
           </li>
@@ -125,7 +133,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Student Feedback
-                <span class="right badge badge-danger">New</span>
+              
               </p>
             </a>
           </li>
@@ -134,7 +142,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Staff Feedback
-                <span class="right badge badge-danger">New</span>
+               
               </p>
             </a>
           </li>
@@ -143,7 +151,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Student Leave
-                <span class="right badge badge-danger">New</span>
+                
               </p>
             </a>
           </li>
@@ -152,7 +160,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Staff Leave
-                <span class="right badge badge-danger">New</span>
+               
               </p>
             </a>
           </li>
