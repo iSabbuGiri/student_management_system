@@ -71,8 +71,7 @@ def add_student_save(request):
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
             address = form.cleaned_data["address"]
-            session_start = form.cleaned_data["session_start"]
-            session_end = form.cleaned_data["session_end"]
+            session_year_id = form.cleaned_data["session_year_id"]
             course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
 
@@ -80,22 +79,22 @@ def add_student_save(request):
             fs = FileSystemStorage()
             filename = fs.save(profile_pic.name,profile_pic)
             profile_pic_url = fs.url(filename)
-            try:
-                user = CustomUser.objects.create_user(username=username, password=password, email=email, last_name=last_name, first_name=first_name, user_type=3)
+            #try:
+            user = CustomUser.objects.create_user(username=username, password=password, email=email, last_name=last_name, first_name=first_name, user_type=3)
 
-                user.students.address = address
-                course_obj = Courses.objects.get(id=course_id)
-                user.students.course_id=course_obj
-                user.students.session_start_year = session_start
-                user.students.session_end_year = session_end
-                user.students.gender = sex
-                user.students.profile_pic=profile_pic_url
-                user.save()
-                messages.success(request, "Successfully Added Student")
-                return HttpResponseRedirect(reverse("add_student"))
-            except:
-                messages.error(request, "Failed to Add Student") 
-                return HttpResponseRedirect(reverse("add_student")) 
+            user.students.address = address
+            course_obj = Courses.objects.get(id=course_id)
+            user.students.course_id=course_obj
+            session_year = SessionYearModel.object.get(id=session_year_id)
+            user.students.session_year_id = session_year
+            user.students.gender = sex
+            user.students.profile_pic=profile_pic_url
+            user.save()
+            messages.success(request, "Successfully Added Student")
+            return HttpResponseRedirect(reverse("add_student"))
+            #except:
+                #messages.error(request, "Failed to Add Student") 
+                #return HttpResponseRedirect(reverse("add_student")) 
         else:
             form = AddStudentForm(request.POST)    
             return render(request, "hod_template/add_student_template.html", {"form":form})     
@@ -184,8 +183,7 @@ def edit_student(request, student_id):
     form.fields['address'].initial=student.address
     form.fields['course'].initial=student.course_id.id
     form.fields['sex'].initial=student.gender
-    form.fields['session_start'].initial=student.session_start_year
-    form.fields['session_end'].initial=student.session_end_year
+    form.fields['session_year_id'].initial=student.session_year_id.id
     return render(request, "hod_template/edit_student_template.html",{"form":form, "id":student_id, "username":student.admin.username})
 
 def edit_student_save(request):
@@ -203,8 +201,7 @@ def edit_student_save(request):
             username =form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             address = form.cleaned_data["address"]
-            session_start =form.cleaned_data["session_start"]
-            session_end =form.cleaned_data["session_end"]
+            session_year_id = form.cleaned_data["session_year_id"]
             course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
 
@@ -227,8 +224,8 @@ def edit_student_save(request):
 
                 student = Students.objects.get(admin = student_id)
                 student.address = address 
-                student.session_start_year = session_start 
-                student.session_end_year = session_end 
+                session_year = SessionYearModel.object.get(id=session_year_id)
+                student.session_year_id = session_year
                 student.gender = sex
 
                 course = Courses.objects.get(id=course_id) 
