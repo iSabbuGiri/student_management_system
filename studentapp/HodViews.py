@@ -313,4 +313,4 @@ def add_session_save(request):
 
         except:
             messages.error(request, "Failed to Add Course")
-            return HttpResponseRedirect(reverse("manage_session"))        
+            return HttpResponseRedirect(reverse("manage_session"))    

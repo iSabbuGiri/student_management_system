@@ -52,6 +52,7 @@ urlpatterns = [
     path('manage_session/', HodViews.manage_session, name="manage_session"),
     path('add_session_save', HodViews.add_session_save, name="add_session_save"),
    
+   
 
     # Staff Path  URL
     
