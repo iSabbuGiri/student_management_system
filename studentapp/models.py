@@ -7,6 +7,7 @@ class SessionYearModel(models.Model):
     id = models.AutoField(primary_key=True)
     session_start_year = models.DateField()
     session_end_year = models.DateField()
+    object = models.Manager
 
 
 class CustomUser(AbstractUser):
